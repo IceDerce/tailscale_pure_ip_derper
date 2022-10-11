@@ -1,7 +1,5 @@
 FROM golang:latest AS builder
 
-LABEL org.opencontainers.image.source https://github.com/yangchuansheng/ip_derper
-
 WORKDIR /app
 
 ADD tailscale /app/tailscale
@@ -22,12 +20,12 @@ ENV DERP_HTTP_PORT 80
 ENV DERP_HOST=127.0.0.1
 ENV DERP_CERTS=/app/certs/
 ENV DERP_STUN true
-ENV DERP_VERIFY_CLIENTS false
+ENV DERP_VERIFY_CLIENTS true
 # ==========================
 
 # apt
 RUN apt-get update && \
-    apt-get install -y openssl curl
+    apt-get install -y openssl curl iputils-ping 
 
 COPY build_cert.sh /app/
 COPY --from=builder /app/derper /app/derper
