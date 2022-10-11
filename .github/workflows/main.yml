@@ -1,4 +1,4 @@
-name: Disable Checking ServerName
+name: 构建纯IP形式的Derper服务器 to docker
 
 on:
   workflow_dispatch:
