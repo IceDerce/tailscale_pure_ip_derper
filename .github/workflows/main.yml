@@ -32,8 +32,8 @@ jobs:
       - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          username: icederce
+          password: loveff.cxc.23
           
       - name: Login to ghcr.io
         uses: docker/login-action@v2
@@ -53,4 +53,5 @@ jobs:
           push: true
           tags: |
             icederce/tailscale_pure_ip_derper:latest
-            icederce/tailscale_pure_ip_derper:2022-10-11
+            icederce/tailscale_pure_ip_derper:2022-10-12
+            ghcr.io/icederce/tailscale_pure_ip_derper:2022-10-12
