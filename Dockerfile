@@ -6,7 +6,6 @@ ADD tailscale /app/tailscale
 
 # build modified derper
 RUN cd /app/tailscale/cmd/derper && \
-    /usr/local/go/bin/go env -w ASSUME_NO_MOVING_GC_UNSAFE_RISK_IT_WITH=go1.19 && \
     /usr/local/go/bin/go build -buildvcs=false -ldflags "-s -w" -o /app/derper && \
     cd /app && \
     rm -rf /app/tailscale
@@ -22,6 +21,7 @@ ENV DERP_HOST=127.0.0.1
 ENV DERP_CERTS=/app/certs/
 ENV DERP_STUN true
 ENV DERP_VERIFY_CLIENTS true
+ENV ASSUME_NO_MOVING_GC_UNSAFE_RISK_IT_WITH=go1.19
 # ==========================
 
 # apt
