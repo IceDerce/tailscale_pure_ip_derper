@@ -6,7 +6,7 @@ ADD tailscale /app/tailscale
 
 # build modified derper
 RUN cd /app/tailscale/cmd/derper && \
-    SET ASSUME_NO_MOVING_GC_UNSAFE_RISK_IT_WITH=go1.19 && \
+    go env -w ASSUME_NO_MOVING_GC_UNSAFE_RISK_IT_WITH=go1.19 && \
     /usr/local/go/bin/go build -buildvcs=false -ldflags "-s -w" -o /app/derper && \
     cd /app && \
     rm -rf /app/tailscale
