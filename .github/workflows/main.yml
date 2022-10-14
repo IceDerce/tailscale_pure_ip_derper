@@ -60,7 +60,7 @@ jobs:
           # Docker tags based on the following events/attributes
           tags: |
             latest
-            ${{ steps.time_id.outputs }}
+            ${{ steps.time_id.outputs.day }}
           
 
       # Runs a single command using the runners shell
