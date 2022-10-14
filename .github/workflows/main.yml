@@ -42,16 +42,34 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GHCR_TOKEN }}
           
+      - name: Generate current date
+        id: time_id
+        uses: Kaven-Universe/github-action-current-date-time@v1.1.0
+        with:
+          format: "YYYY-MM-DD"
+          timezone-offset: 8
+          
+      - name: Docker meta
+        id: docker_meta_id # you'll use this in the next step
+        uses: docker/metadata-action@v3
+        with:
+          # list of Docker images to use as base name for tags
+          images: |
+             icederce/tailscale_pure_ip_derper
+             ghcr.io/icederce/tailscale_pure_ip_derper
+          # Docker tags based on the following events/attributes
+          tags: |
+            latest
+            ${{ steps.time_id.outputs }}
+          
 
       # Runs a single command using the runners shell
       - name: Build and push Docker images to docker.io and ghcr.io
         uses: docker/build-push-action@v2
         with:
           file: 'Dockerfile'
-          platforms: linux/amd64
+          platforms: linux/amd64,linux/arm/v8,linux/arm64
           context: ./
           push: true
-          tags: |
-            icederce/tailscale_pure_ip_derper:latest
-            icederce/tailscale_pure_ip_derper:2022-10-12
-            ghcr.io/icederce/tailscale_pure_ip_derper:2022-10-12
+          tags: ${{ steps.docker_meta_id.outputs.tags }}
+          labels: ${{ steps.docker_meta_id.outputs.labels }}
