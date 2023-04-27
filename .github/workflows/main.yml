@@ -35,13 +35,6 @@ jobs:
           username: icederce
           password: loveff.cxc.23
           
-      - name: Login to ghcr.io
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GHCR_TOKEN }}
-          
       - name: Generate current date
         id: time_id
         uses: Kaven-Universe/github-action-current-date-time@v1.1.0
@@ -56,7 +49,6 @@ jobs:
           # list of Docker images to use as base name for tags
           images: |
              icederce/tailscale_pure_ip_derper
-             ghcr.io/icederce/tailscale_pure_ip_derper
           # Docker tags based on the following events/attributes
           tags: |
             latest
